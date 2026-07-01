@@ -1,37 +1,94 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🇨🇳 ChinaEdu Admissions Platform
 
-## Getting Started
+A mobile-first, responsive, and high-trust website architecture for an international student admissions agency helping students study in China. 
 
-First, run the development server:
+Built with **Next.js (App Router)**, **TypeScript**, **Tailwind CSS**, and **Supabase**.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## 🚀 Key Features
+
+* 📱 **Mobile-First Responsive Design**: Scales fluidly from compact mobile displays (375px+) to large desktop viewports (1024px+).
+* 🎓 **Interactive University Finder**: Dynamic university search page with instant client-side filtering by City, Language Medium (English/Chinese), and Scholarship types.
+* 📋 **3-Step Qualification Wizard**: Multi-step inquiry form that validates student contact details, GPA qualifications, and program preferences, pre-populating targets from search routes.
+* 🛠️ **Supabase Integration**: Server-side inquiry storage with public insert policies (Row Level Security) and built-in development fallback mocks to prevent runtime crashes.
+* 💫 **Premium Aesthetics**: Soft, trustworthy light-themed layout featuring custom glassmorphism components and fluid micro-animations powered by `framer-motion`.
+* 📝 **Student Guides Feed**: Placeholders for resource guides (e.g. visa processing, bank setup, scholarship applications) to optimize student readiness.
+
+---
+
+## 📂 Folder Structure
+
+```
+├── app/
+│   ├── api/inquiries/route.ts  # Validation and Supabase inquiry insertion
+│   ├── blog/                   # Helpful resources feed for students
+│   ├── inquiry/                # 3-Step lead capture qualification form
+│   ├── services/               # Detailed breakdown of housing/visa support
+│   ├── universities/           # Filterable partner universities search
+│   ├── globals.css             # Premium style tokens and theme variables
+│   ├── layout.tsx              # Google Fonts (Outfit & Inter) configuration
+│   └── page.tsx                # Homepage layout (Hero, Stats, Process)
+├── components/
+│   ├── layout/
+│   │   ├── Navbar.tsx          # Responsive navigation bar with mobile sliding drawer
+│   │   └── Footer.tsx          # Multi-column footer with ICEF trust seals
+│   └── home/
+│       ├── Hero.tsx            # Trust-building hero section
+│       ├── Stats.tsx           # Success metrics showcase
+│       ├── ServicesGrid.tsx    # Responsive service teaser cards
+│       ├── Programs.tsx        # Interactive degree tabs & eligibility details
+│       ├── Process.tsx         # 5-step application timeline
+│       └── Testimonials.tsx    # Success stories horizontal slider / carousel
+├── lib/
+│   └── supabase.ts             # Supabase client instantiation with fallback mock client
+├── public/
+│   └── images/                 # Custom generated photorealistic image assets
+└── supabase_schema.sql         # SQL schema defining the inquiries table and RLS policies
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🛠️ Local Development Setup
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 1. Prerequisites
+Ensure you have **Node.js** (v18.x or higher) and **npm** installed.
 
-## Learn More
+### 2. Installation
+Clone the repository and install dependencies:
+```bash
+git clone https://github.com/Sadev-Academy/China-Education.git
+cd China-Education
+npm install
+```
 
-To learn more about Next.js, take a look at the following resources:
+### 3. Environment Variables
+Copy `.env.local.example` to `.env.local`:
+```bash
+cp .env.local.example .env.local
+```
+Add your Supabase Project credentials:
+```env
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_public_key
+```
+*Note: If left blank or unconfigured, the application runs in **Mock Development Mode**, printing form submissions to the server console and simulating database insertion without throwing errors.*
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 4. Database Setup
+Execute the SQL statements inside [`supabase_schema.sql`](./supabase_schema.sql) in your Supabase SQL Editor. This sets up the `inquiries` table and enables secure Row Level Security (RLS) policies allowing public insertions while locking reads to authenticated staff.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 5. Running the App
+Start the local development server:
+```bash
+npm run dev
+```
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# China-Education
+## 🧪 Production Compilation Verification
+Ensure everything compiles cleanly before deployment:
+```bash
+npm run build
+```
+This pre-renders all static pages and outputs an optimized production build.
